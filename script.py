@@ -80,6 +80,8 @@ driver.get("https://evento.renater.fr/survey/results/id32ibkl")
 
 # time.sleep(2)
 
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
 # answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
 answers = driver.find_element(By.CLASS_NAME, "sum_row")
 
