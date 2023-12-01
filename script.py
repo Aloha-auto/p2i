@@ -23,7 +23,7 @@ API_KEY = os.environ['API_KEY'] #jsonbin
 places = [40, 42, 46, 43, 44, 46, 46, 42]
 
 firefox_options = Options()
-#firefox_options.add_argument("-headless")
+firefox_options.add_argument("-headless")
 
 driver = webdriver.Firefox(options=firefox_options)
 
@@ -37,6 +37,7 @@ search.send_keys("INSA Lyon")
 time.sleep(1)
 
 search.send_keys(Keys.ENTER)
+# switch656a6cda3d7b1
 
 time.sleep(1)
 
@@ -62,28 +63,33 @@ password.submit()
 
 time.sleep(1)
 
-driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
+# driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
+driver.get("https://evento.renater.fr/survey/results/id32ibkl")
 
-try:
-    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
-    driver.execute_script("""
-    var element = arguments[0];
-    element.parentNode.removeChild(element);
-    """, cookie_banner)
-except:
-    pass
+# try:
+#     cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
+#     driver.execute_script("""
+#     var element = arguments[0];
+#     element.parentNode.removeChild(element);
+#     """, cookie_banner)
+# except:
+#     pass
 
-answers_switch = driver.find_elements(By.CLASS_NAME, "switch-container")[0]
-answers_switch.click()
+# answers_switch = driver.find_elements(By.CLASS_NAME, "switch-container")[0]
+# answers_switch.click()
 
-time.sleep(2)
+# time.sleep(2)
 
-answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
+# answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
+answers = driver.find_element(By.CLASS_NAME, "sum_row")
 
-dic = {datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S"): {}}
+timestamp = datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
+
+dic = {timestamp: {}}
 i = 1
 for el in answers.find_elements(By.TAG_NAME, "td") :
-    dic[datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")][i] = {"total": el.text, "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1])}
+    # dic[datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")][i] = {"total": el.text, "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1])}
+    dic[timestamp][i] = {"total": int(el.get_attribute('innerHTML')), "pourcentage": float(el.get_attribute("data-percentage"))}
     i += 1
 
 old = requests.get(URL, headers={"authorization": f"token {API_KEY}"}).json()
