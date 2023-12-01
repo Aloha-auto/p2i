@@ -23,7 +23,7 @@ API_KEY = os.environ['API_KEY'] #jsonbin
 places = [40, 42, 46, 43, 44, 46, 46, 42]
 
 firefox_options = Options()
-firefox_options.add_argument("-headless")
+#firefox_options.add_argument("-headless")
 
 driver = webdriver.Firefox(options=firefox_options)
 
