@@ -64,11 +64,14 @@ time.sleep(1)
 
 driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
 
-cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
-driver.execute_script("""
-var element = arguments[0];
-element.parentNode.removeChild(element);
-""", cookie_banner)
+try:
+    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
+    driver.execute_script("""
+    var element = arguments[0];
+    element.parentNode.removeChild(element);
+    """, cookie_banner)
+except:
+    pass
 
 answers_switch = driver.find_elements(By.CLASS_NAME, "switch-container")[0]
 answers_switch.click()
