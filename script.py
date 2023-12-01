@@ -47,6 +47,8 @@ time.sleep(1)
 
 driver.get("https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fidp%2FAuthn%2FExtCas%3Fconversation%3De1s1&entityId=https%3A%2F%2Fevento.renater.fr%2F")
 
+time.sleep(1)
+
 username = driver.find_element(By.ID, "username")
 password = driver.find_element(By.ID, "password")
 
