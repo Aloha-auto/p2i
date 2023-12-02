@@ -101,7 +101,7 @@ print(f"Screenshot before switch uploaded to imgbb.com: {imgbb_url_after}")
 ###
 
 try:
-    answers_switch = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "switch-container")))
+    answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
     answers_switch.click()
 except Exception as e:
     print(f"Error clicking on switch: {e}")
