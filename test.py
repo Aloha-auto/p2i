@@ -105,15 +105,22 @@ try:
 except:
     pass
 driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+
 try:
-    # answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
-    answers_switch = driver.find_element(By.XPATH, "/html/body/main/section/div[2]/label")
-    print("switch found")
-    answers_switch.click()
-    print("switch clicked")
-except Exception as e:
-    print(f"Error clicking on switch: {e}")
-    # screenshot_path = save_screenshot(driver, "screenshot_error.png")
-    # imgbb_url = upload_to_imgbb(IMGBB_API_KEY, screenshot_path)
-    # print(f"Screenshot uploaded to imgbb.com: {imgbb_url}")
-    # Ajoutez d'autres informations de débogage si nécessaire
+    switch_div = driver.find_element(By.CLASS_NAME, "show-results-container")
+    print("found div")
+    switch_div.find_element(By.TAG_NAME, "label").send_keys(Keys.ENTER)
+    print("opened results")
+except:
+    try:
+        # answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
+        answers_switch = driver.find_element(By.XPATH, "/html/body/main/section/div[2]/label")
+        print("switch found")
+        answers_switch.click()
+        print("switch clicked")
+    except Exception as e:
+        print(f"Error clicking on switch: {e}")
+        # screenshot_path = save_screenshot(driver, "screenshot_error.png")
+        # imgbb_url = upload_to_imgbb(IMGBB_API_KEY, screenshot_path)
+        # print(f"Screenshot uploaded to imgbb.com: {imgbb_url}")
+        # Ajoutez d'autres informations de débogage si nécessaire
