@@ -104,3 +104,14 @@ try:
     print("cookie banner deleted")
 except:
     pass
+
+try:
+    answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
+    answers_switch.click()
+    print("switch clicked")
+except Exception as e:
+    print(f"Error clicking on switch: {e}")
+    screenshot_path = save_screenshot(driver, "screenshot_error.png")
+    imgbb_url = upload_to_imgbb(IMGBB_API_KEY, screenshot_path)
+    print(f"Screenshot uploaded to imgbb.com: {imgbb_url}")
+    # Ajoutez d'autres informations de débogage si nécessaire
