@@ -109,6 +109,11 @@ driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 try:
     switch_div = driver.find_element(By.TAG_NAME, "main")
     print("found big div")
+    print()
+    print(switch_div.get_attribute("innerHTML"))
+    print()
+    print(switch_div.text)
+    print()
     switch_section = switch_div.find_element(By.TAG_NAME, "section")
     print("found section")
     switch_s_div = switch_section.find_element(By.CLASS_NAME, "show-results-container")
@@ -117,7 +122,8 @@ try:
     print("found label")
     switch_label.send_keys(Keys.ENTER)
     print("opened results")
-except:
+except Exception as d:
+    print(f"Error : {d}")
     try:
         # answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
         answers_switch = driver.find_element(By.XPATH, "/html/body/main/section/div[2]/label")
