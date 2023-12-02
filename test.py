@@ -52,3 +52,38 @@ search = driver.find_element(By.CLASS_NAME, "select2-search__field")
 search.send_keys("INSA Lyon")
 
 print("school selected")
+
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
+
+search.send_keys(Keys.ENTER)
+# switch656a6cda3d7b1
+
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
+
+submit = driver.find_element(By.NAME, "Select")
+submit.submit()
+
+print("submitted renater form")
+
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
+
+driver.get("https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fidp%2FAuthn%2FExtCas%3Fconversation%3De1s1&entityId=https%3A%2F%2Fevento.renater.fr%2F")
+
+wait = WebDriverWait(driver, 10)
+
+username = driver.find_element(By.ID, "username")
+password = driver.find_element(By.ID, "password")
+
+username.send_keys(USER)
+password.send_keys(PASS)
+
+
+wait = WebDriverWait(driver, 10)
+time.sleep(4)
+
+password.submit()
+
+print("authenticated with CAS")
