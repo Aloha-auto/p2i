@@ -7,6 +7,8 @@ import datetime
 import requests
 import json
 import os
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 USER = os.environ['USER'] #mondossierweb
 PASS = os.environ['PASS'] #mondossierweb
@@ -16,7 +18,7 @@ API_KEY = os.environ['API_KEY'] #jsonbin
 places = [40, 42, 46, 43, 44, 46, 46, 42]
 
 firefox_options = Options()
-firefox_options.add_argument("-headless")
+# firefox_options.add_argument("-headless")
 
 driver = webdriver.Firefox(options=firefox_options)
 
@@ -27,21 +29,24 @@ menu.click()
 search = driver.find_element(By.CLASS_NAME, "select2-search__field")
 search.send_keys("INSA Lyon")
 
-time.sleep(1)
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
 
 search.send_keys(Keys.ENTER)
 # switch656a6cda3d7b1
 
-time.sleep(1)
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
 
 submit = driver.find_element(By.NAME, "Select")
 submit.submit()
 
-time.sleep(1)
+wait = WebDriverWait(driver, 10)
+time.sleep(2)
 
 driver.get("https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fidp%2FAuthn%2FExtCas%3Fconversation%3De1s1&entityId=https%3A%2F%2Fevento.renater.fr%2F")
 
-time.sleep(1)
+wait = WebDriverWait(driver, 10)
 
 username = driver.find_element(By.ID, "username")
 password = driver.find_element(By.ID, "password")
@@ -50,10 +55,12 @@ username.send_keys(USER)
 password.send_keys(PASS)
 
 
-time.sleep(1)
+wait = WebDriverWait(driver, 10)
+time.sleep(4)
 
 password.submit()
 
+wait = WebDriverWait(driver, 10)
 time.sleep(1)
 
 driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
@@ -68,10 +75,25 @@ try:
 except:
     pass
 
-answers_switch = driver.find_elements(By.CLASS_NAME, "switch-container")[0]
-answers_switch.click()
+###
+driver.save_screenshot("screenshot_before_switch.png")
+###
 
-time.sleep(5)
+try:
+    # Utilisez une attente explicite pour s'assurer que l'élément est présent
+    answers_switch = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "switch-container")))
+    answers_switch.click()
+except Exception as e:
+    print(f"Error clicking on switch: {e}")
+    driver.save_screenshot("screenshot_error.png")
+    # Ajoutez d'autres informations de débogage si nécessaire
+    raise e
+
+wait = WebDriverWait(driver, 10)
+
+###
+driver.save_screenshot("screenshot_after_switch.png")
+###
 
 answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
 
