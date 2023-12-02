@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec  1 22:30:32 2023
-
-@author: Alois
-"""
-
 from selenium.webdriver.firefox.options import Options
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -63,35 +56,31 @@ password.submit()
 
 time.sleep(1)
 
-# driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
-driver.get("https://evento.renater.fr/survey/results/id32ibkl")
+driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
 
-# try:
-#     cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
-#     driver.execute_script("""
-#     var element = arguments[0];
-#     element.parentNode.removeChild(element);
-#     """, cookie_banner)
-# except:
-#     pass
 
-# answers_switch = driver.find_elements(By.CLASS_NAME, "switch-container")[0]
-# answers_switch.click()
+try:
+    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
+    driver.execute_script("""
+    var element = arguments[0];
+    element.parentNode.removeChild(element);
+    """, cookie_banner)
+except:
+    pass
 
-# time.sleep(2)
+answers_switch = driver.find_elements(By.CLASS_NAME, "switch-container")[0]
+answers_switch.click()
 
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(5)
 
-# answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
-answers = driver.find_element(By.CLASS_NAME, "sum_row")
+answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
 
 timestamp = datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
 
 dic = {timestamp: {}}
 i = 1
 for el in answers.find_elements(By.TAG_NAME, "td") :
-    # dic[datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")][i] = {"total": el.text, "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1])}
-    dic[timestamp][i] = {"total": int(el.get_attribute('innerHTML')), "pourcentage": float(el.get_attribute("data-percentage"))}
+    dic[timestamp][i] = {"votes": int(el.text), "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1]), "dispo": max(places[i-1] - int(el.text), 0), "total": places[i-1]}
     i += 1
 
 old = requests.get(URL, headers={"authorization": f"token {API_KEY}"}).json()
