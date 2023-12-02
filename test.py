@@ -108,8 +108,14 @@ driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 
 try:
     switch_div = driver.find_element(By.TAG_NAME, "main")
-    print("found div")
-    switch_div.find_element(By.TAG_NAME, "label").send_keys(Keys.ENTER)
+    print("found big div")
+    switch_section = switch_div.find_element(By.TAG_NAME, "section")
+    print("found section")
+    switch_s_div = switch_section.find_element(By.CLASS_NAME, "show-results-container")
+    print("founs small div")
+    switch_label = switch_s_div.find_element(By.TAG_NAME, "label")
+    print("found label")
+    switch_label.send_keys(Keys.ENTER)
     print("opened results")
 except:
     try:
