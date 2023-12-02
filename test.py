@@ -183,12 +183,16 @@ timestamp = datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
 dic = {timestamp: {}}
 i = 1
 for el in answers.find_elements(By.TAG_NAME, "td") :
+    print(i)
+    print(el.text)
     dic[timestamp][i] = {"votes": int(el.text), "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1]), "dispo": max(places[i-1] - int(el.text), 0), "total": places[i-1]}
     i += 1
-
+print(dic)
 driver.close()
+print("driver closed")
 
 old = requests.get(URL, headers={"authorization": f"token {API_KEY}"}).json()
 
 new = {**old, **dic}
-requests.post(URL, data = json.dumps(new), headers={"authorization": f"token {API_KEY}"})
+r = requests.post(URL, data = json.dumps(new), headers={"authorization": f"token {API_KEY}"})
+print(r.status_code)
