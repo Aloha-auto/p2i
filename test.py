@@ -96,6 +96,7 @@ driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1
 print("survey launched")
 try:
     cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
+    print("cookie banner found")
     driver.execute_script("""
     var element = arguments[0];
     element.parentNode.removeChild(element);
