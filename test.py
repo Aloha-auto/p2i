@@ -95,7 +95,7 @@ driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1
 
 print("survey launched")
 try:
-    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
+    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'body > section:nth-child(4)')
     print("cookie banner found")
     driver.execute_script("""
     var element = arguments[0];
@@ -111,7 +111,7 @@ try:
     print("switch clicked")
 except Exception as e:
     print(f"Error clicking on switch: {e}")
-    screenshot_path = save_screenshot(driver, "screenshot_error.png")
-    imgbb_url = upload_to_imgbb(IMGBB_API_KEY, screenshot_path)
-    print(f"Screenshot uploaded to imgbb.com: {imgbb_url}")
+    # screenshot_path = save_screenshot(driver, "screenshot_error.png")
+    # imgbb_url = upload_to_imgbb(IMGBB_API_KEY, screenshot_path)
+    # print(f"Screenshot uploaded to imgbb.com: {imgbb_url}")
     # Ajoutez d'autres informations de débogage si nécessaire
