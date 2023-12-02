@@ -104,9 +104,11 @@ try:
     print("cookie banner deleted")
 except:
     pass
-
+driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 try:
-    answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
+    # answers_switch = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/main/section/div[2]/label")))
+    answers_switch = driver.find_element(By.XPATH, "/html/body/main/section/div[2]/label")
+    print("switch found")
     answers_switch.click()
     print("switch clicked")
 except Exception as e:
