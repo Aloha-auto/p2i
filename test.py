@@ -43,3 +43,12 @@ firefox_options = Options()
 driver = webdriver.Firefox(options=firefox_options)
 
 print("driver created")
+
+driver.get("https://discovery.renater.fr/edugain/WAYF?cru=yes&entityID=https%3A%2F%2Fevento.renater.fr%2F&return=https%3A%2F%2Fevento.renater.fr%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dss%253Amem%253Aed9904aecaee9f03359fd3b125f2fdb804586bb82705130d2733235b63904d6e")
+
+menu = driver.find_element(By.CLASS_NAME, "select2-selection--single")
+menu.click()
+search = driver.find_element(By.CLASS_NAME, "select2-search__field")
+search.send_keys("INSA Lyon")
+
+print("school selected")
