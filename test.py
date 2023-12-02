@@ -13,8 +13,8 @@ from PIL import Image
 
 print("imports ok")
 
-USER = os.environ['USER'] #mondossierweb
-PASS = os.environ['PASS'] #mondossierweb
+USER = os.environ['USER'] #CAS
+PASS = os.environ['PASS'] #CAS
 URL = os.environ['URL'] #jsonbin
 API_KEY = os.environ['API_KEY'] #jsonbin
 IMGBB_API_KEY = os.environ['IMGBB_API_KEY'] #ImgBB
@@ -95,7 +95,7 @@ driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1
 
 print("survey launched")
 try:
-    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'body > section:nth-child(4)')
+    cookie_banner = driver.find_element(By.XPATH, '/html/body/section')
     print("cookie banner found")
     driver.execute_script("""
     var element = arguments[0];
