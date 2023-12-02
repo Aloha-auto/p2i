@@ -17,7 +17,6 @@ USER = os.environ['USER'] #CAS
 PASS = os.environ['PASS'] #CAS
 URL = os.environ['URL'] #jsonbin
 API_KEY = os.environ['API_KEY'] #jsonbin
-IMGBB_API_KEY = os.environ['IMGBB_API_KEY'] #ImgBB
 
 places = [40, 42, 46, 43, 44, 46, 46, 42]
 
