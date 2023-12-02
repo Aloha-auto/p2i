@@ -44,7 +44,9 @@ driver = webdriver.Firefox(options=firefox_options)
 
 print("driver created")
 
-driver.get("https://discovery.renater.fr/edugain/WAYF?cru=yes&entityID=https%3A%2F%2Fevento.renater.fr%2F&return=https%3A%2F%2Fevento.renater.fr%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dss%253Amem%253Aed9904aecaee9f03359fd3b125f2fdb804586bb82705130d2733235b63904d6e")
+# driver.get("https://discovery.renater.fr/edugain/WAYF?cru=yes&entityID=https%3A%2F%2Fevento.renater.fr%2F&return=https%3A%2F%2Fevento.renater.fr%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dss%253Amem%253Aed9904aecaee9f03359fd3b125f2fdb804586bb82705130d2733235b63904d6e")
+driver.get("https://evento.renater.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fevento.renater.fr%2Fsurvey%2Ffc-ventilation-dans-les-p2i-etape-1-id32ibkl")
+wait = WebDriverWait(driver, 10)
 
 menu = driver.find_element(By.CLASS_NAME, "select2-selection--single")
 menu.click()
@@ -70,7 +72,7 @@ print("submitted renater form")
 wait = WebDriverWait(driver, 10)
 time.sleep(2)
 
-driver.get("https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fidp%2FAuthn%2FExtCas%3Fconversation%3De1s1&entityId=https%3A%2F%2Fevento.renater.fr%2F")
+# driver.get("https://login.insa-lyon.fr/cas/login?service=https%3A%2F%2Flogin.insa-lyon.fr%2Fidp%2FAuthn%2FExtCas%3Fconversation%3De1s1&entityId=https%3A%2F%2Fevento.renater.fr%2F")
 
 wait = WebDriverWait(driver, 10)
 
@@ -91,9 +93,9 @@ print("authenticated with CAS")
 wait = WebDriverWait(driver, 10)
 time.sleep(1)
 
-driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
+# driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
 
-print("survey launched")
+# print("survey launched")
 try:
     cookie_banner = driver.find_element(By.XPATH, '/html/body/section')
     print("cookie banner found")
@@ -111,6 +113,8 @@ try:
     print("found big div")
     print()
     print(switch_div.get_attribute("innerHTML"))
+    print()
+    print("------------------------------------------------------------------------")
     print()
     print(switch_div.text)
     print()
