@@ -9,13 +9,31 @@ import json
 import os
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from PIL import Image
 
 USER = os.environ['USER'] #mondossierweb
 PASS = os.environ['PASS'] #mondossierweb
 URL = os.environ['URL'] #jsonbin
 API_KEY = os.environ['API_KEY'] #jsonbin
+IMGBB_API_KEY = os.environ['IMGBB_API_KEY'] #ImgBB
 
 places = [40, 42, 46, 43, 44, 46, 46, 42]
+
+# Fonction pour prendre une capture d'écran
+def save_screenshot(driver, filename):
+    driver.save_screenshot(filename)
+    im = Image.open(filename)
+    im.show()  # Ouvre la capture d'écran (commentez cette ligne si vous ne voulez pas que la capture d'écran s'affiche)
+    return filename
+
+# Fonction pour envoyer une capture d'écran à imgbb.com
+def upload_to_imgbb(api_key, image_path):
+    url = "https://api.imgbb.com/1/upload"
+    with open(image_path, "rb") as file:
+        files = {"image": file}
+        payload = {"key": api_key}
+        response = requests.post(url, files=files, data=payload)
+        return response.json()["data"]["url"]
 
 firefox_options = Options()
 # firefox_options.add_argument("-headless")
@@ -76,23 +94,29 @@ except:
     pass
 
 ###
-driver.save_screenshot("screenshot_before_switch.png")
+screenshot_path_before = save_screenshot(driver, "screenshot_before_switch.png")
+imgbb_url_after = upload_to_imgbb(IMGBB_API_KEY, screenshot_path_before)
+print(f"Screenshot before switch uploaded to imgbb.com: {imgbb_url_after}")
+
 ###
 
 try:
-    # Utilisez une attente explicite pour s'assurer que l'élément est présent
     answers_switch = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "switch-container")))
     answers_switch.click()
 except Exception as e:
     print(f"Error clicking on switch: {e}")
-    driver.save_screenshot("screenshot_error.png")
+    screenshot_path = save_screenshot(driver, "screenshot_error.png")
+    imgbb_url = upload_to_imgbb(IMGBB_API_KEY, screenshot_path)
+    print(f"Screenshot uploaded to imgbb.com: {imgbb_url}")
     # Ajoutez d'autres informations de débogage si nécessaire
     raise e
 
 wait = WebDriverWait(driver, 10)
 
 ###
-driver.save_screenshot("screenshot_after_switch.png")
+screenshot_path_after = save_screenshot(driver, "screenshot_after_switch.png")
+imgbb_url_after = upload_to_imgbb(IMGBB_API_KEY, screenshot_path_after)
+print(f"Screenshot after switch uploaded to imgbb.com: {imgbb_url_after}")
 ###
 
 answers = driver.find_elements(By.CLASS_NAME, "sum_row")[1]
