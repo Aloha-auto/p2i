@@ -4,12 +4,11 @@ env:
   PASS: ${{ secrets.PASS }}
   URL: ${{ secrets.URL }}
   API_KEY: ${{ secrets.API_KEY }}
-  IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
 
 on:
-#  schedule: 
-#    - cron: '0/15 7-20 * 9-12,1-7 *'
-#    - cron: '0/30 21-23,0-6 * 9-12,1-7 *'
+  schedule: 
+    - cron: '0/15 7-20 * 9-12,1-7 *'
+    - cron: '0/30 21-23,0-6 * 9-12,1-7 *'
   workflow_dispatch:
 
 
