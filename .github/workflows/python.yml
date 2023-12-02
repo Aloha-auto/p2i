@@ -4,6 +4,7 @@ env:
   PASS: ${{ secrets.PASS }}
   URL: ${{ secrets.URL }}
   API_KEY: ${{ secrets.API_KEY }}
+  IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
 
 on:
 #  schedule: 
