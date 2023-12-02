@@ -87,3 +87,19 @@ time.sleep(4)
 password.submit()
 
 print("authenticated with CAS")
+
+wait = WebDriverWait(driver, 10)
+time.sleep(1)
+
+driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-1-id32ibkl")
+
+print("survey launched")
+try:
+    cookie_banner = driver.find_element(By.CSS_SELECTOR, 'section[data-template-content="banner_cookie_container"]')
+    driver.execute_script("""
+    var element = arguments[0];
+    element.parentNode.removeChild(element);
+    """, cookie_banner)
+    print("cookie banner deleted")
+except:
+    pass
