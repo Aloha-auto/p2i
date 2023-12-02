@@ -124,7 +124,6 @@ wait = WebDriverWait(driver, 10)
 print(f"title : {driver.title}")
 print(f"url: {driver.current_url}")
 print()
-print(driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML"))
 driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 
 wait = WebDriverWait(driver, 10)
