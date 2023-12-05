@@ -111,7 +111,7 @@ timestamp = datetime.datetime.now(tz).strftime("%d/%m/%Y-%H:%M:%S")
 dic = {timestamp: {}}
 i = 1
 for el in answers.find_elements(By.TAG_NAME, "td") :
-    dic[timestamp][i] = {"votes": int(el.text), "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1]), "dispo": max(places[i-1] - int(el.text), 0), "total": places[i-1]}
+    dic[timestamp][i] = {"votes": int(el.text), "pourcentage": float(el.get_attribute("title").split(" : ")[1][:-1]), "dispo": places[i-1] - int(el.text), "total": places[i-1]}
     i += 1
 
 driver.close()
