@@ -29,7 +29,7 @@ driver = webdriver.Firefox(options=firefox_options)
 
 print("driver created")
 
-driver.get("https://evento.renater.fr/Shibboleth.sso/Login?target=https%3A%2F%2Fevento.renater.fr%2Fsurvey%2Ffc-ventilation-dans-les-p2i-etape-1-id32ibkl")
+driver.get("https://evento.renater.fr/survey/fc-ventilation-dans-les-p2i-etape-2-vjoqpyve")
 
 menu = driver.find_element(By.CLASS_NAME, "select2-selection--single")
 menu.click()
