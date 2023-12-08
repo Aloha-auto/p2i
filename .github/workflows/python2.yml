@@ -1,4 +1,4 @@
-name: Run Python
+name: Run Python 2
 env: 
   USER: ${{ secrets.USER }}
   PASS: ${{ secrets.PASS }}
