@@ -10,6 +10,8 @@ import time
 import datetime
 import pytz
 import os
+import itertools
+import ftplib
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
@@ -21,7 +23,9 @@ from selenium.webdriver.support import expected_conditions as EC
 USER = os.environ['USER'] #mondossierweb
 PASS = os.environ['PASS'] #mondossierweb
 URL = os.environ['URL'] #jsonbin
-API_KEY = os.environ['API_KEY'] #jsonbin
+FTP_HOST = os.environ['FTP_HOST'] #ftp
+FTP_USER = os.environ['FTP_USER'] #ftp
+FTP_PASS = os.environ['FTP_PASS'] #ftp
 
 tz = pytz.timezone('Europe/Paris')
 
@@ -101,6 +105,12 @@ def main():
         
         html = result.text
     
+    # connect to the FTP server
+    ftp = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS)
+    # force UTF-8 encoding
+    ftp.encoding = "utf-8"
+
+    ftp.sendcmd('CWD htdocs/p2i/')
     
     content = csv_file.split("\n")
     rows = content[1:-1]
@@ -117,11 +127,31 @@ def main():
             d[timestamp]["p2i"][i+1] = int(el)
             
             
-    old = requests.get(URL, headers={"authorization": f"token {API_KEY}"}).json()
+    # old = requests.get(URL, headers={"authorization": f"token {API_KEY}"}).json()
+    # old = dict(itertools.islice(old.items(), len(old) - 10, len(old)))
+    # new = {**old, **d}
+    # r = requests.post(URL, data = json.dumps(d), headers={"authorization": f"token {API_KEY}"})
+    # print(r.status_code)
     
+    filename = "data.json"
+    with open(filename, "wb") as file:
+        # use FTP's RETR command to download the file
+        ftp.retrbinary(f"RETR {filename}", file.write)
+
+    with open(filename, 'r') as f :
+        old = json.load(f)
+        
     new = {**old, **d}
-    r = requests.post(URL, data = json.dumps(new), headers={"authorization": f"token {API_KEY}"})
-    print(r.status_code)
+
+    with open(filename, 'w') as f :
+        json.dump(new, f)
+
+
+    with open(filename, "rb") as file:
+        # use FTP's STOR command to upload the file
+        ftp.storbinary(f"STOR {filename}", file)
+    
+    
     return html
 
 html = main()
