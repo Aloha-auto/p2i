@@ -125,13 +125,7 @@ def main():
         
     for i, el in enumerate(total.split(",")[1::]):
             d[timestamp]["p2i"][i+1] = int(el)
-            
-            
-    # old = requests.get(URL, headers={"authorization": f"token {API_KEY}"}).json()
-    # old = dict(itertools.islice(old.items(), len(old) - 10, len(old)))
-    # new = {**old, **d}
-    # r = requests.post(URL, data = json.dumps(d), headers={"authorization": f"token {API_KEY}"})
-    # print(r.status_code)
+
     
     filename = "data.json"
     with open(filename, "wb") as file:
@@ -151,7 +145,7 @@ def main():
         # use FTP's STOR command to upload the file
         ftp.storbinary(f"STOR {filename}", file)
     
-    
+    print("file uploaded")
     return html
 
 html = main()
