@@ -3,7 +3,9 @@ env:
   USER: ${{ secrets.USER }}
   PASS: ${{ secrets.PASS }}
   URL: ${{ secrets.URL2 }}
-  API_KEY: ${{ secrets.API_KEY }}
+  FTP_HOST: ${{ secrets.FTP_HOST }}
+  FTP_USER: ${{ secrets.FTP_USER }}
+  FTP_PASS: ${{ secrets.FTP_PASS }}
 
 on:
   schedule: 
